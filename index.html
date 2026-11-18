@@ -1,0 +1,511 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VKIT Smart Campus</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="app">
+
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-icon">V</div>
+            <div>
+                <h2>VKIT</h2>
+                <span>SMART CAMPUS</span>
+            </div>
+        </div>
+
+        <div class="nav-label">WORKSPACE</div>
+
+        <button class="nav-item active" data-page="dashboard">
+            <span>▦</span> Dashboard
+        </button>
+
+        <button class="nav-item" data-page="departments">
+            <span>⌂</span> Departments
+        </button>
+
+        <button class="nav-item" data-page="rooms">
+            <span>▤</span> Rooms & Labs
+        </button>
+
+        <button class="nav-item" data-page="bookings">
+            <span>◷</span> Bookings
+        </button>
+
+        <button class="nav-item" data-page="equipment">
+            <span>▣</span> Equipment
+        </button>
+
+        <div class="sidebar-bottom">
+            <div class="campus-status">
+                <span class="live-dot"></span>
+                <div>
+                    <strong>Campus system</strong>
+                    <small>Connected to database</small>
+                </div>
+            </div>
+            <small class="copyright">VKIT Smart Campus · 2026</small>
+        </div>
+    </aside>
+
+    <main class="main">
+
+        <header class="topbar">
+            <div>
+                <span class="eyebrow">VIVEKANANDA INSTITUTE OF TECHNOLOGY</span>
+                <h1 id="page-title">Campus Overview</h1>
+            </div>
+
+            <div class="top-actions">
+                <span class="system-pill">
+                    <span class="live-dot"></span> System Online
+                </span>
+
+                <button class="primary-btn" id="management-login-btn">
+                    Management Login
+                </button>
+
+                <button class="secondary-btn hidden" id="management-logout-btn">
+                    Logout
+                </button>
+
+                <div class="admin-avatar">A</div>
+            </div>
+        </header>
+
+        <section class="page active" id="dashboard">
+
+            <div class="welcome-banner">
+                <div>
+                    <span class="banner-tag">INSTITUTIONAL RESOURCE INTELLIGENCE</span>
+                    <h2>One campus. Smarter resource management.</h2>
+                    <p>Monitor rooms, laboratories, bookings and equipment from one central platform.</p>
+                </div>
+                <div class="banner-symbol">V</div>
+            </div>
+
+            <div class="section-heading">
+                <div>
+                    <h2>Campus at a glance</h2>
+                    <p>Live information from your campus database</p>
+                </div>
+                <button class="secondary-btn" id="refresh-btn">↻ Refresh data</button>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <span>Total rooms</span>
+                        <span class="stat-icon purple">▤</span>
+                    </div>
+                    <h2 id="total-rooms">0</h2>
+                    <small>Registered campus spaces</small>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <span>Available rooms</span>
+                        <span class="stat-icon green">✓</span>
+                    </div>
+                    <h2 id="available-rooms">0</h2>
+                    <small>Ready for allocation</small>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <span>Bookings</span>
+                        <span class="stat-icon orange">◷</span>
+                    </div>
+                    <h2 id="total-bookings">0</h2>
+                    <small>All recorded reservations</small>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <span>Pending requests</span>
+                        <span class="stat-icon blue">⌛</span>
+                    </div>
+                    <h2 id="pending-bookings">0</h2>
+                    <small>Awaiting approval</small>
+                </div>
+            </div>
+
+            <div class="content-grid">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <div>
+                            <h3>Resource utilization</h3>
+                            <p>Current room availability</p>
+                        </div>
+                    </div>
+
+                    <div class="utilization">
+                        <div class="util-number" id="util-number">0%</div>
+                        <div class="util-track">
+                            <div id="util-bar"></div>
+                        </div>
+                        <div class="util-legend">
+                            <span><i class="legend-green"></i> Available</span>
+                            <span><i class="legend-grey"></i> Other status</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-heading">
+                        <div>
+                            <h3>Campus inventory</h3>
+                            <p>Equipment overview</p>
+                        </div>
+                    </div>
+
+                    <div class="inventory-number" id="equipment-total">0</div>
+                    <p class="muted">Total equipment units</p>
+                    <div class="inventory-row">
+                        <span>Available units</span>
+                        <strong id="equipment-available">0</strong>
+                    </div>
+                    <div class="inventory-row">
+                        <span>Equipment types</span>
+                        <strong id="equipment-types">0</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel recent-panel">
+                <div class="panel-heading">
+                    <div>
+                        <h3>Recent booking requests</h3>
+                        <p>Latest activity across campus</p>
+                    </div>
+                    <button class="text-btn" data-goto="bookings">View all →</button>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>REQUEST</th>
+                                <th>ROOM</th>
+                                <th>DATE</th>
+                                <th>STATUS</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recent-bookings"></tbody>
+                    </table>
+                </div>
+            </div>
+
+        </section>
+
+        <section class="page" id="departments">
+            <div class="section-heading">
+                <div>
+                    <h2>Department directory</h2>
+                    <p>Manage departments within the institution</p>
+                </div>
+                <button class="primary-btn" id="show-department-form">+ Add department</button>
+            </div>
+
+            <form class="form-panel hidden" id="department-form">
+                <h3>Register a department</h3>
+                <div class="form-grid">
+                    <label>Department code
+                        <input name="code" placeholder="Example: CSE" required>
+                    </label>
+                    <label>Department name
+                        <input name="name" placeholder="Department of Computer Science" required>
+                    </label>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="secondary-btn cancel-form">Cancel</button>
+                    <button class="primary-btn">Save department</button>
+                </div>
+            </form>
+
+            <div class="panel">
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>CODE</th>
+                                <th>DEPARTMENT</th>
+                                <th>REGISTERED ROOMS</th>
+                            </tr>
+                        </thead>
+                        <tbody id="department-list"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section class="page" id="rooms">
+            <div class="section-heading">
+                <div>
+                    <h2>Rooms & laboratories</h2>
+                    <p>Manage campus spaces and availability</p>
+                </div>
+                <button class="primary-btn" id="show-room-form">+ Add room</button>
+            </div>
+
+            <form class="form-panel hidden" id="room-form">
+                <h3>Register a campus space</h3>
+                <div class="form-grid">
+                    <label>Room code
+                        <input name="room_code" placeholder="Example: LAB-101" required>
+                    </label>
+                    <label>Room name
+                        <input name="name" placeholder="Computer Science Lab" required>
+                    </label>
+                    <label>Building
+                        <select name="building_id" id="room-building" required></select>
+                    </label>
+                    <label>Department
+                        <select name="department_id" id="room-department">
+                            <option value="">Shared / Unassigned</option>
+                        </select>
+                    </label>
+                    <label>Room type
+                        <select name="type" required>
+                            <option value="CLASSROOM">Classroom</option>
+                            <option value="LABORATORY">Laboratory</option>
+                            <option value="SEMINAR_HALL">Seminar hall</option>
+                            <option value="AUDITORIUM">Auditorium</option>
+                            <option value="MEETING_ROOM">Meeting room</option>
+                        </select>
+                    </label>
+                    <label>Capacity
+                        <input type="number" name="capacity" min="1" placeholder="60" required>
+                    </label>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="secondary-btn cancel-form">Cancel</button>
+                    <button class="primary-btn">Save room</button>
+                </div>
+            </form>
+
+            <div class="filter-row">
+                <input id="room-search" placeholder="Search rooms by name or code...">
+                <select id="room-filter">
+                    <option value="">All room types</option>
+                    <option value="CLASSROOM">Classrooms</option>
+                    <option value="LABORATORY">Laboratories</option>
+                    <option value="SEMINAR_HALL">Seminar halls</option>
+                    <option value="AUDITORIUM">Auditoriums</option>
+                    <option value="MEETING_ROOM">Meeting rooms</option>
+                </select>
+            </div>
+
+            <div class="panel">
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ROOM</th>
+                                <th>TYPE</th>
+                                <th>DEPARTMENT</th>
+                                <th>CAPACITY</th>
+                                <th>STATUS</th>
+                                <th>ACTION</th>
+                            </tr>
+                        </thead>
+                        <tbody id="room-list"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section class="page" id="bookings">
+            <div class="section-heading">
+                <div>
+                    <h2>Resource reservations</h2>
+                    <p>Schedule and manage campus bookings</p>
+                </div>
+                <button class="primary-btn" id="show-booking-form">+ New booking</button>
+            </div>
+
+            <form class="form-panel hidden" id="booking-form">
+                <h3>Create a booking request</h3>
+                <div class="form-grid">
+                    <label>Requester name
+                        <input name="requester_name" required>
+                    </label>
+                    <label>Requester email
+                        <input type="email" name="requester_email" required>
+                    </label>
+                    <label>Department
+                        <select name="department_id" id="booking-department">
+                            <option value="">Unassigned</option>
+                        </select>
+                    </label>
+                    <label>Room
+                        <select name="room_id" id="booking-room" required></select>
+                    </label>
+                    <label>Booking title
+                        <input name="title" placeholder="Project presentation" required>
+                    </label>
+                    <label>Purpose
+                        <input name="purpose" placeholder="Reason for reservation">
+                    </label>
+                    <label>Date
+                        <input type="date" name="booking_date" id="booking-date" required>
+                    </label>
+                    <label>Attendees
+                        <input type="number" name="attendees" min="1" value="1" required>
+                    </label>
+                    <label>Start time
+                        <input type="time" name="start_time" required>
+                    </label>
+                    <label>End time
+                        <input type="time" name="end_time" required>
+                    </label>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="secondary-btn cancel-form">Cancel</button>
+                    <button class="primary-btn">Submit booking</button>
+                </div>
+            </form>
+
+            <div class="filter-row">
+                <select id="booking-filter">
+                    <option value="">All bookings</option>
+                    <option value="PENDING">Pending</option>
+                    <option value="APPROVED">Approved</option>
+                    <option value="REJECTED">Rejected</option>
+                    <option value="CANCELLED">Cancelled</option>
+                </select>
+            </div>
+
+            <div class="panel">
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>REQUEST</th>
+                                <th>REQUESTER</th>
+                                <th>ROOM</th>
+                                <th>DATE & TIME</th>
+                                <th>STATUS</th>
+                                <th>ACTION</th>
+                            </tr>
+                        </thead>
+                        <tbody id="booking-list"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section class="page" id="equipment">
+            <div class="section-heading">
+                <div>
+                    <h2>Equipment inventory</h2>
+                    <p>Track equipment across departments and rooms</p>
+                </div>
+                <button class="primary-btn" id="show-equipment-form">+ Add equipment</button>
+            </div>
+
+            <form class="form-panel hidden" id="equipment-form">
+                <h3>Register equipment</h3>
+                <div class="form-grid">
+                    <label>Equipment name
+                        <input name="name" placeholder="Projector" required>
+                    </label>
+                    <label>Asset code
+                        <input name="asset_code" placeholder="VKIT-PROJ-001" required>
+                    </label>
+                    <label>Department
+                        <select name="department_id" id="equipment-department">
+                            <option value="">Shared / Unassigned</option>
+                        </select>
+                    </label>
+                    <label>Room
+                        <select name="room_id" id="equipment-room">
+                            <option value="">Not assigned</option>
+                        </select>
+                    </label>
+                    <label>Total quantity
+                        <input type="number" name="total_quantity" min="1" required>
+                    </label>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="secondary-btn cancel-form">Cancel</button>
+                    <button class="primary-btn">Save equipment</button>
+                </div>
+            </form>
+
+            <div class="panel">
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ASSET CODE</th>
+                                <th>EQUIPMENT</th>
+                                <th>DEPARTMENT</th>
+                                <th>ROOM</th>
+                                <th>QUANTITY</th>
+                                <th>CONDITION</th>
+                            </tr>
+                        </thead>
+                        <tbody id="equipment-list"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+    </main>
+</div>
+
+<!-- MANAGEMENT LOGIN POPUP -->
+<div class="management-modal hidden" id="management-modal">
+    <div class="management-card">
+        <h2>Management Login</h2>
+        <p>Sign in to review and approve campus booking requests.</p>
+
+        <form id="management-login-form">
+            <label for="management-id">Management ID</label>
+            <input
+                id="management-id"
+                type="text"
+                placeholder="Enter management ID"
+                required
+            >
+
+            <label for="management-password">Password</label>
+            <input
+                id="management-password"
+                type="password"
+                placeholder="Enter password"
+                required
+            >
+
+            <div class="form-actions">
+                <button
+                    type="button"
+                    class="secondary-btn"
+                    id="close-management-login"
+                >
+                    Cancel
+                </button>
+
+                <button type="submit" class="primary-btn">
+                    Login
+                </button>
+            </div>
+
+            <p id="management-error"></p>
+        </form>
+    </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
